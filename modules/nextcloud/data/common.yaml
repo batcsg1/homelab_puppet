@@ -1,0 +1,3 @@
+nextcloud::compose_dir: '/opt/docker/nextcloud'
+nextcloud::nextcloud_home: '/srv/nextcloud'
+nextcloud::domain_name: 'cloud.batchelornz.com'
