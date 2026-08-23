@@ -1,0 +1,48 @@
+services:
+  db:
+    image: mariadb:10.11
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+    volumes:
+      - ${NEXTCLOUD_DB_DATA}:/var/lib/mysql
+    environment:
+      - MARIADB_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+  redis:
+    image: redis:alpine
+    restart: always
+  app:
+    image: nextcloud:apache
+    restart: always
+    volumes:
+      - ${NEXTCLOUD_WWW}:/var/www/html
+      - ${NEXTCLOUD_APP_DATA}:/var/www/html/data
+      #- ${EXTERNAL_DRIVE}/samuel:/external/samuel
+    environment:
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=db
+      - REDIS_HOST=redis
+      - NEXTCLOUD_TRUSTED_DOMAINS=${DOMAIN_NAME}
+      - OVERWRITEPROTOCOL=https
+      - TZ=Pacific/Auckland
+    depends_on:
+      - db
+      - redis
+  # Cloudflare Tunnel Service
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: always
+    command: tunnel run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+  cron:
+    image: nextcloud:apache
+    restart: always
+    volumes:
+      - ${NEXTCLOUD_WWW}:/var/www/html
+    entrypoint: /cron.sh
+    depends_on:
+      - db
+      - redis

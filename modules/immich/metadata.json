@@ -1,0 +1,9 @@
+{
+  "name": "batcsg1-immich",
+  "version": "1.0.0",
+  "author": "batcsg1",
+  "summary": "Manages my Immich photo/video management deployment via Puppet",
+  "license": "Apache-2.0",
+  "source": "",
+  "dependencies": []
+}

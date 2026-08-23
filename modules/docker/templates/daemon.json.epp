@@ -1,0 +1,29 @@
+<%- | Hash $daemon_settings | -%>
+<%
+$defaults = {
+  'log-driver' => 'json-file',
+  'log-opts'   => { 'max-size' => '10m', 'max-file' => '3' },
+  'dns'        => ['1.1.1.1', '1.0.0.1'],
+}
+$merged = $defaults + $daemon_settings
+
+# Determine string representation for the boolean toggles cleanly
+if 'ipv6' in $merged {
+  $ipv6_val      = $merged['ipv6'] ? { true => 'true', false => 'false' }
+  # Disables IPv6 networks, ip6tables, and isolates DNS lookups to IPv4 channels
+  $ipv6_fragment = "  \"ipv6\": ${ipv6_val},\n  \"ip6tables\": false,\n"
+} else {
+  $ipv6_fragment = ''
+}
+
+$dns_json = $merged['dns'].map |$d| { "\"${d}\"" }.join(', ')
+-%>
+{
+  "log-driver": "<%= $merged['log-driver'] %>",
+  "log-opts": {
+    "max-size": "<%= $merged['log-opts']['max-size'] %>",
+    "max-file": "<%= $merged['log-opts']['max-file'] %>"
+  },
+<%= $ipv6_fragment -%>
+  "dns": [<%= $dns_json %>]
+}

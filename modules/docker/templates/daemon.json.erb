@@ -1,0 +1,16 @@
+{
+<% if @daemon_settings['log-driver'] -%>
+  "log-driver": "<%= @daemon_settings['log-driver'] %>",
+  "log-opts": {
+    "max-size": "<%= @daemon_settings.dig('log-opts', 'max-size') || '10m' %>",
+    "max-file": "<%= @daemon_settings.dig('log-opts', 'max-file') || '3' %>"
+  },
+<% end -%>
+<% if @daemon_settings['storage-driver'] -%>
+  "storage-driver": "<%= @daemon_settings['storage-driver'] %>",
+<% end -%>
+<% if @daemon_settings['data-root'] -%>
+  "data-root": "<%= @daemon_settings['data-root'] %>",
+<% end -%>
+  "dns": [<%= (@daemon_settings['dns'] || ['1.1.1.1', '1.0.0.1']).map { |d| "\"#{d}\"" }.join(', ') %>]
+}

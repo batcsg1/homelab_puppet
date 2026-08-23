@@ -1,0 +1,7 @@
+# immich/data/common.yaml
+immich::compose_dir: '/opt/docker/immich'
+immich::immich_location: '/srv/immich'
+immich::timezone: 'Pacific/Auckland'
+immich::db_username: 'postgres'
+immich::db_database_name: 'immich'
+immich::immich_version: 'release'
