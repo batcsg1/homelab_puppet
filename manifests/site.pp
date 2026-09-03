@@ -1,6 +1,6 @@
 node 'maestro.puppet.batchelornz.com' {
   include common
-
+  include r10k
 }
 
 node 'nextcloud.puppet.batchelornz.com' {
