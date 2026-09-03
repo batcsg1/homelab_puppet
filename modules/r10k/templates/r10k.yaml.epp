@@ -1,0 +1,10 @@
+<%- | String $remote,
+    String $basedir,
+    String $cachedir,
+| -%>
+cachedir: '<%= $cachedir %>'
+
+sources:
+  studio_ops:
+    remote: '<%= $remote %>'
+    basedir: '<%= $basedir %>'

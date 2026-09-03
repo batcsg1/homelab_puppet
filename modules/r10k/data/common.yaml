@@ -1,0 +1,2 @@
+r10k::remote: 'git@github.com:batcsg1/homelab_puppet.git'
+r10k::manage_cron: true
