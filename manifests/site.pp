@@ -2,6 +2,7 @@ node 'maestro.puppet.batchelornz.com' {
   include common
   include r10k
   include prometheus
+  include grafana
 }
 
 node 'nextcloud.puppet.batchelornz.com' {
