@@ -2,6 +2,7 @@
 # Classes applied to every managed node in the environment.
 class common {
    include sudo
+   include node_exporter
    class { 'docker':
     daemon_settings => { 
       'ipv6'      => false,
