@@ -1,7 +1,7 @@
 class puppet::agent (
   String $server,
   String $runinterval,
-  String $dns_alt_names,
+  String $dns_alt_names = undef,
   String $certname            = $facts['networking']['fqdn'],
   Optional[String] $ca_server = undef,
 ) {
