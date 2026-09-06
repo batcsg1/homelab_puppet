@@ -1,4 +1,4 @@
 ---
 puppet::server::certname: 'cm1.puppet.batchelornz.com'
 puppet::server::ca_master: false
-puppet::server::dns_alt_names: 'cm1, cm1.puppet.batchelornz.com'
+puppet::server::dns_alt_names: 'proxmox, cm1.puppet.batchelornz.com'
