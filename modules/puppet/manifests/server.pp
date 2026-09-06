@@ -18,6 +18,11 @@ class puppet::server (
     default => 'certificate-authority-disabled-service',
   }
 
+  $ca_line = $ca_service ? {
+    true    => 'certificate-authority-service',
+    default => 'certificate-authority-disabled-service',
+  }
+
   file { '/etc/puppet/puppet.conf':
     ensure  => file,
     content => epp('puppet/server.conf.epp', {
@@ -48,10 +53,11 @@ class puppet::server (
   # CA enabled/disabled is a Puppetserver bootstrap toggle, not a puppet.conf setting.
   file { '/etc/puppet/puppetserver/services.d/ca.cfg':
     ensure  => file,
-    content => "puppetlabs.services.ca.${ca_service}/${ca_service}\n",
+    content => "puppetlabs.services.ca.${ca_line}/${ca_line}\npuppetlabs.trapperkeeper.services.watcher.filesystem-watch-service/filesystem-watch-service\n",
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
+    require => File['/etc/puppet/puppetserver/services.d'],
     notify  => Service['puppetserver'],
   }
 
