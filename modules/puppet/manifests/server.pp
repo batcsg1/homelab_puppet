@@ -53,7 +53,10 @@ class puppet::server (
   # CA enabled/disabled is a Puppetserver bootstrap toggle, not a puppet.conf setting.
   file { '/etc/puppet/puppetserver/services.d/ca.cfg':
     ensure  => file,
-    content => "puppetlabs.services.ca.${ca_line}/${ca_line}\npuppetlabs.trapperkeeper.services.watcher.filesystem-watch-service/filesystem-watch-service\n",
+    content => @("CACFG"),
+      puppetlabs.services.ca.${ca_line}/${ca_line}
+      puppetlabs.trapperkeeper.services.watcher.filesystem-watch-service/filesystem-watch-service
+      | CACFG
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
