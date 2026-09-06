@@ -12,5 +12,6 @@ ca_server = <%= $ca_server %>
 <% } -%>
 runinterval = <%= $runinterval %>
 
-[server]
+<%- if $dns_alt_names { -%>
 dns_alt_names = <%= $dns_alt_names %>
+<%- end -%>
