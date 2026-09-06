@@ -38,7 +38,7 @@ class puppet::server (
     notify  => [Service['puppetserver'], Service['puppet']],
   }
 
-  file { '/etc/puppetlabs/puppetserver/services.d':
+  file { '/etc/puppet/puppetserver/services.d':
     ensure => directory,
     owner  => 'puppet',
     group  => 'puppet',
@@ -46,7 +46,7 @@ class puppet::server (
   }
 
   # CA enabled/disabled is a Puppetserver bootstrap toggle, not a puppet.conf setting.
-  file { '/etc/puppetlabs/puppetserver/services.d/ca.cfg':
+  file { '/etc/puppet/puppetserver/services.d/ca.cfg':
     ensure  => file,
     content => "puppetlabs.services.ca.${ca_service}/${ca_service}\n",
     owner   => 'root',
