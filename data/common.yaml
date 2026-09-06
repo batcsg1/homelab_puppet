@@ -1,9 +1,9 @@
 ---
-puppet::server::certname: 'maestro.puppet.batchelornz.com'
+# Site-wide defaults. Anything node-specific belongs in data/nodes/.
+
 puppet::server::server: 'maestro.puppet.batchelornz.com'
 puppet::server::basemodulepath: '/etc/puppet/code/modules:/opt/puppetlabs/puppet/modules'
 puppet::server::runinterval: '30m'
-puppet::server::dns_alt_names: 'beowulf-m, puppet, maestro.puppet.batchelornz.com'
 puppet::server::vardir: '/var/lib/puppetserver'
 puppet::server::logdir: '/var/log/puppetserver'
 puppet::server::rundir: '/var/run/puppetserver'
@@ -14,4 +14,3 @@ puppet::server::ca_server: 'maestro.puppet.batchelornz.com'
 puppet::agent::server: 'cm1.puppet.batchelornz.com'
 puppet::agent::ca_server: 'maestro.puppet.batchelornz.com'
 puppet::agent::runinterval: '10m'
-puppet::agent::dns_alt_names: 'maestro, puppet, maestro.puppet.batchelornz.com'

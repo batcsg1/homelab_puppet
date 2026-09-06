@@ -1,0 +1,4 @@
+---
+puppet::server::certname: 'maestro.puppet.batchelornz.com'
+puppet::server::ca_master: true
+puppet::server::dns_alt_names: 'beowulf-m, puppet, maestro.puppet.batchelornz.com'
