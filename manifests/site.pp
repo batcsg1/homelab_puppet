@@ -14,3 +14,7 @@ node 'workstation.puppet.batchelornz.com' {
   include common
   include immich
 }
+
+node 'cm1.puppet.batchelornz.com' {
+  include common
+}
