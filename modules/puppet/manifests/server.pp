@@ -3,7 +3,7 @@ class puppet::server (
   String  $server,
   String  $basemodulepath,
   String  $runinterval,
-  String  $dns_alt_names,
+  String  $dns_alt_names = undef,
   String  $vardir,
   String  $logdir,
   String  $rundir,
