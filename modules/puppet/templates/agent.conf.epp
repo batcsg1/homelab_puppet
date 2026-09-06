@@ -1,0 +1,16 @@
+<%- | String           $certname,
+      String           $server,
+      Optional[String] $ca_server,
+      String           $runinterval,
+      String           $dns_alt_names,
+| -%>
+[main]
+certname = <%= $certname %>
+server = <%= $server %>
+<% if $ca_server { -%>
+ca_server = <%= $ca_server %>
+<% } -%>
+runinterval = <%= $runinterval %>
+
+[server]
+dns_alt_names = <%= $dns_alt_names %>

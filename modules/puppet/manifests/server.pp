@@ -1,0 +1,60 @@
+class puppet::server (
+  String $certname,
+  String $server,
+  String $basemodulepath,
+  String $runinterval,
+  String $dns_alt_names,
+  String $vardir,
+  String $logdir,
+  String $rundir,
+  String $codedir,
+  Boolean $ca_master = true,
+  String  $ca_server = $server,
+) {
+  # true  => this host runs the CA (CA master)
+  # false => CA service disabled, certs come from $ca_server (compile master)
+  $ca_service = $ca_master ? {
+    true    => 'certificate-authority-service',
+    default => 'certificate-authority-disabled-service',
+  }
+
+  file { '/etc/puppet/puppet.conf':
+    ensure  => file,
+    content => epp('puppet/server.conf.epp', {
+      'certname'       => $certname,
+      'server'         => $server,
+      'basemodulepath' => $basemodulepath,
+      'runinterval'    => $runinterval,
+      'dns_alt_names'  => $dns_alt_names,
+      'vardir'         => $vardir,
+      'logdir'         => $logdir,
+      'rundir'         => $rundir,
+      'codedir'        => $codedir,
+      'ca_server'      => $ca_master ? { true => undef, default => $ca_server },
+    }),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    notify  => [Service['puppetserver'], Service['puppet']],
+  }
+
+  # CA enabled/disabled is a Puppetserver bootstrap toggle, not a puppet.conf setting.
+  file { '/etc/puppetlabs/puppetserver/services.d/ca.cfg':
+    ensure  => file,
+    content => "puppetlabs.services.ca.${ca_service}/${ca_service}\n",
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    notify  => Service['puppetserver'],
+  }
+
+  service { 'puppetserver':
+    ensure => running,
+    enable => true,
+  }
+
+  service { 'puppet':
+    ensure => running,
+    enable => true,
+  }
+}

@@ -1,0 +1,26 @@
+<%- | String           $certname,
+      String           $server,
+      String           $basemodulepath,
+      String           $runinterval,
+      String           $dns_alt_names,
+      String           $vardir,
+      String           $logdir,
+      String           $rundir,
+      String           $codedir,
+      Optional[String] $ca_server,
+| -%>
+[main]
+certname = <%= $certname %>
+server = <%= $server %>
+basemodulepath = <%= $basemodulepath %>
+runinterval = <%= $runinterval %>
+<% if $ca_server { -%>
+ca_server = <%= $ca_server %>
+<% } -%>
+
+[server]
+dns_alt_names = <%= $dns_alt_names %>
+vardir = <%= $vardir %>
+logdir = <%= $logdir %>
+rundir = <%= $rundir %>
+codedir = <%= $codedir %>
