@@ -1,6 +1,6 @@
 ---
 prometheus::targets::port: 9100
-prometheus::targets::domain: 'puppet.batchelornz.com
+prometheus::targets::domain: 'puppet.batchelornz.com'
 
 prometheus::targets::groups:
   worker:
