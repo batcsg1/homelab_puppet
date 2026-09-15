@@ -8,7 +8,7 @@ prometheus::targets::groups:
     role: worker
     hosts:
       - minecraft
-      - proxmox
+      - cm1
       - nextcloud
       - workstation
   ca_master:
