@@ -4,7 +4,7 @@ prometheus::targets::domain: 'puppet.batchelornz.com'
 
 prometheus::targets::groups:
   worker:
-    cluster: batcsg1
+    cluster: homelab
     role: worker
     hosts:
       - minecraft
@@ -12,7 +12,7 @@ prometheus::targets::groups:
       - nextcloud
       - workstation
   ca_master:
-    cluster: batcsg1
+    cluster: homelab
     role: ca_master
     hosts:
       - maestro
