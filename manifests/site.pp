@@ -18,6 +18,10 @@ node 'workstation.puppet.batchelornz.com' {
   include immich
 }
 
+node 'minecraft.puppet.batchelornz.com' {
+  include common
+}
+
 node 'cm1.puppet.batchelornz.com' {
   include common
   class { 'puppet::server':
