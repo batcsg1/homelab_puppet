@@ -20,6 +20,7 @@ node 'workstation.puppet.batchelornz.com' {
 
 node 'minecraft.puppet.batchelornz.com' {
   include common
+  include minecraft
 }
 
 node 'cm1.puppet.batchelornz.com' {
