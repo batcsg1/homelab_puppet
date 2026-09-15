@@ -1,0 +1,12 @@
+---
+minecraft::compose_dir: '/opt/docker/minecraft'
+minecraft::server_data: '/srv/minecraft'
+minecraft::image: 'itzg/minecraft-server'
+minecraft::container_name: 'mc-snowdon'
+minecraft::level: 'Snowdon'
+minecraft::mode: 'creative'
+minecraft::eula: true
+minecraft::game_port: 25565
+minecraft::dynmap_port: 8123
+minecraft::restart_policy: 'unless-stopped'
+minecraft::docker_user: 'docker'

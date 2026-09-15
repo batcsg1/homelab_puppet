@@ -1,0 +1,25 @@
+<%- | String  $image,
+      String  $container_name,
+      Boolean $eula,
+      String  $level,
+      String  $mode,
+      Integer $game_port,
+      Integer $dynmap_port,
+      String  $restart_policy,
+| -%>
+services:
+  mc:
+    image: <%= $image %>
+    container_name: <%= $container_name %>
+    environment:
+      EULA: "<%= $eula %>"
+      LEVEL: <%= $level %>
+      MODE: <%= $mode %>
+    ports:
+      - "<%= $game_port %>:25565"
+      - "<%= $dynmap_port %>:8123"
+    volumes:
+      - ${SERVER_DATA}:/data
+    stdin_open: true
+    tty: true
+    restart: <%= $restart_policy %>
