@@ -1,0 +1,12 @@
+{
+  "name": "batcsg1-microk8s",
+  "version": "0.1.0",
+  "author": "batcsg1",
+  "summary": "Installs MicroK8s, enables addons, and deploys Helm releases",
+  "license": "MIT",
+  "source": "",
+  "dependencies": [],
+  "operatingsystem_support": [
+    { "operatingsystem": "Debian", "operatingsystemrelease": ["13"] }
+  ]
+}
