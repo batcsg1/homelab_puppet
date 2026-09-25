@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-machine-learning
+  labels:
+    io.kompose.service: immich-machine-learning
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      io.kompose.service: immich-machine-learning
+  template:
+    metadata:
+      labels:
+        io.kompose.service: immich-machine-learning
+    spec:
+      containers:
+        - name: immich-machine-learning
+          image: ghcr.io/immich-app/immich-machine-learning:{{ .Values.immichVersion }}{{ if .Values.gpu.ml }}-cuda{{ end }}
+          envFrom:
+            - configMapRef:
+                name: env
+          ports:
+            - containerPort: 3003
+          {{- if .Values.gpu.ml }}
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+          {{- end }}
+          volumeMounts:
+            - name: model-cache
+              mountPath: /cache
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: model-cache

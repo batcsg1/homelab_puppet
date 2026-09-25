@@ -1,0 +1,21 @@
+# Managed by Puppet (immich_k8s). Do not edit.
+immichVersion: <%= @immich_version.to_json %>
+timezone: <%= @timezone.to_json %>
+nodePort: <%= @node_port %>
+
+gpu:
+  ml: <%= @gpu_ml %>
+  transcoding: <%= @gpu_transcoding %>
+
+paths:
+  upload: <%= @upload_path.to_json %>
+  db: <%= @db_path.to_json %>
+  samuelLibrary: <%= @samuel_library.to_json %>
+  carmenLibrary: <%= @carmen_library.to_json %>
+
+db:
+  username: <%= @db_username.to_json %>
+  database: <%= @db_name.to_json %>
+  password: <%= @db_password.unwrap.to_json %>
+
+cloudflareTunnelToken: <%= @tunnel_token.unwrap.to_json %>

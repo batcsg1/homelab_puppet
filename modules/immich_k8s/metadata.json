@@ -1,0 +1,14 @@
+{
+  "name": "batcsg1-immich_k8s",
+  "version": "0.1.0",
+  "author": "batcsg1",
+  "summary": "Deploys Immich on MicroK8s via a Helm chart",
+  "license": "MIT",
+  "source": "",
+  "dependencies": [
+    { "name": "batcsg1-microk8s", "version_requirement": ">= 0.1.0" }
+  ],
+  "operatingsystem_support": [
+    { "operatingsystem": "Debian", "operatingsystemrelease": ["13"] }
+  ]
+}

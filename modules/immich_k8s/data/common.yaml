@@ -1,0 +1,13 @@
+lookup_options:
+  immich_k8s::db_password:
+    convert_to: Sensitive
+  immich_k8s::tunnel_token:
+    convert_to: Sensitive
+
+microk8s::users:
+  - batcsg1
+
+immich_k8s::immich_version: release
+immich_k8s::timezone: Pacific/Auckland
+immich_k8s::gpu_ml: true
+immich_k8s::gpu_transcoding: false

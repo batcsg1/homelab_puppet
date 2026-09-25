@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tunnel
+  labels:
+    io.kompose.service: tunnel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: tunnel
+  template:
+    metadata:
+      labels:
+        io.kompose.service: tunnel
+    spec:
+      containers:
+        - name: immich-tunnel
+          image: cloudflare/cloudflared:latest
+          args: ["tunnel", "--no-autoupdate", "run"]
+          env:
+            - name: TUNNEL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: immich-secrets
+                  key: TUNNEL_TOKEN

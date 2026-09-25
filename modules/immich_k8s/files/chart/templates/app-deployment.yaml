@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  labels:
+    io.kompose.service: app
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      io.kompose.service: app
+  template:
+    metadata:
+      labels:
+        io.kompose.service: app
+    spec:
+      containers:
+        - name: immich-server
+          image: ghcr.io/immich-app/immich-server:{{ .Values.immichVersion }}
+          envFrom:
+            - configMapRef:
+                name: env
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: immich-secrets
+                  key: DB_PASSWORD
+            {{- if .Values.gpu.transcoding }}
+            - name: NVIDIA_DRIVER_CAPABILITIES
+              value: compute,video,utility
+            {{- end }}
+          ports:
+            - containerPort: 2283
+          {{- if .Values.gpu.transcoding }}
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+          {{- end }}
+          volumeMounts:
+            - name: upload
+              mountPath: /data
+            - name: samuel-library
+              mountPath: /mnt/media/samuel
+            - name: carmen-library
+              mountPath: /mnt/media/carmen
+      volumes:
+        - name: upload
+          hostPath:
+            path: {{ .Values.paths.upload }}
+            type: Directory
+        - name: samuel-library
+          hostPath:
+            path: {{ .Values.paths.samuelLibrary }}
+            type: Directory
+        - name: carmen-library
+          hostPath:
+            path: {{ .Values.paths.carmenLibrary }}
+            type: Directory
