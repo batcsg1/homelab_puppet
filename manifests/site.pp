@@ -16,6 +16,7 @@ node 'workstation.puppet.batchelornz.com' {
   include common
   include puppet::agent
   include immich
+  include microk8s
 }
 
 node 'minecraft.puppet.batchelornz.com' {
