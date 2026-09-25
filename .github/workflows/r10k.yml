@@ -1,0 +1,29 @@
+name: r10k deploy production
+
+on:
+  push:
+    branches: [production]
+  workflow_dispatch:
+
+concurrency:
+  group: r10k-production
+  cancel-in-progress: false
+
+jobs:
+  deploy-ca:
+    runs-on: self-hosted
+    steps:
+      - name: Deploy on maestro (CA, local)
+        run: sudo -n /usr/bin/r10k deploy environment production --modules --verbose info -c /etc/puppet/r10k/r10k.yaml
+
+  deploy-compile-masters:
+    needs: deploy-ca
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        host: [proxmox]
+    steps:
+      - name: Deploy on ${{ matrix.host }}
+        run: ssh -o BatchMode=yes ${{ matrix.host }} 'sudo -n /usr/bin/r10k deploy environment production --modules --verbose info -c /etc/puppet/r10k/r10k.yaml'
