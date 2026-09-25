@@ -14,7 +14,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Deploy on maestro (CA, local)
-        run: sudo -n /usr/bin/r10k deploy environment production --modules --verbose info -c /etc/puppet/r10k/r10k.yaml
+        run: sudo -n /usr/local/bin/r10k deploy environment production --modules --verbose info -c /etc/puppet/r10k/r10k.yaml
 
   deploy-compile-masters:
     needs: deploy-ca
@@ -26,4 +26,4 @@ jobs:
         host: [proxmox]
     steps:
       - name: Deploy on ${{ matrix.host }}
-        run: ssh -o BatchMode=yes ${{ matrix.host }} 'sudo -n /usr/bin/r10k deploy environment production --modules --verbose info -c /etc/puppet/r10k/r10k.yaml'
+        run: ssh -o BatchMode=yes ${{ matrix.host }} 'sudo -n /usr/local/bin/r10k deploy environment production --modules --verbose info -c /etc/puppet/r10k/r10k.yaml'
