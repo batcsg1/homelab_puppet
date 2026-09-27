@@ -1,0 +1,3 @@
+# data/nodes/workstation.puppet.batchelornz.com.yaml
+microk8s::role: control
+microk8s::gpu: true
