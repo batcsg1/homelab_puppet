@@ -1,0 +1,14 @@
+---
+lookup_options:
+  microk8s::cluster_token:
+    convert_to: Sensitive
+  microk8s::addons:
+    merge: hash
+
+microk8s::role: standalone
+microk8s::addons:
+  dns: ''
+  hostpath-storage: ''
+  helm3: ''
+microk8s::gpu: false
+microk8s::users: []
