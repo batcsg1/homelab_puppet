@@ -16,8 +16,8 @@ spec:
       labels:
         io.kompose.service: app
     spec:
-      {{- if .Values.gpu.ml }}
-        runtimeClassName: nvidia-container-runtime
+      {{- if .Values.gpu.transcoding }}
+      runtimeClassName: nvidia-container-runtime
       {{- end }}
       containers:
         - name: immich-server
@@ -43,22 +43,16 @@ spec:
               nvidia.com/gpu: 1
           {{- end }}
           volumeMounts:
-            - name: upload
+            - name: storage
               mountPath: /data
-            - name: samuel-library
+            - name: storage
               mountPath: /mnt/media/samuel
-            - name: carmen-library
+              subPath: {{ .Values.libraries.samuel }}
+            - name: storage
               mountPath: /mnt/media/carmen
+              subPath: {{ .Values.libraries.carmen }}
       volumes:
-        - name: upload
-          hostPath:
-            path: {{ .Values.paths.upload }}
-            type: Directory
-        - name: samuel-library
-          hostPath:
-            path: {{ .Values.paths.samuelLibrary }}
-            type: Directory
-        - name: carmen-library
-          hostPath:
-            path: {{ .Values.paths.carmenLibrary }}
-            type: Directory
+        - name: storage
+          nfs:
+            server: {{ .Values.nfs.server }}
+            path: {{ .Values.nfs.path }}
