@@ -16,6 +16,9 @@ spec:
       labels:
         io.kompose.service: immich-machine-learning
     spec:
+      {{- if .Values.gpu.ml }}
+      runtimeClassName: nvidia-container-runtime
+      {{- end }}
       containers:
         - name: immich-machine-learning
           image: ghcr.io/immich-app/immich-machine-learning:{{ .Values.immichVersion }}{{ if .Values.gpu.ml }}-cuda{{ end }}
