@@ -1,13 +1,16 @@
 ---
 version: 5
-
 defaults:
-  datadir: 'data'
+  datadir: data
   data_hash: yaml_data
-
 hierarchy:
-  - name: 'Per-node'
-    path: 'nodes/%{trusted.certname}.yaml'
-
-  - name: 'Common'
-    path: 'common.yaml'
+  - name: "Per-node"
+    path: "nodes/%{trusted.certname}.yaml"
+  - name: "Secrets"
+    lookup_key: eyaml_lookup_key
+    path: "secrets.eyaml"
+    options:
+      pkcs7_private_key: /etc/puppet/eyaml/private_key.pkcs7.pem
+      pkcs7_public_key: /etc/puppet/eyaml/public_key.pkcs7.pem
+  - name: "Common"
+    path: "common.yaml"
