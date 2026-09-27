@@ -1,12 +1,22 @@
-# @summary Installs snapd and the MicroK8s snap, then waits for it to be ready.
+# @summary Installs snapd, MicroK8s and host dependencies, then waits for it to be ready.
 class microk8s::install {
   $channel_arg = $microk8s::channel ? {
     undef   => '',
     default => " --channel=${microk8s::channel}",
   }
 
-  package { 'snapd':
+  package { ['snapd', 'nfs-common']:
     ensure => installed,
+  }
+
+  # GPU nodes use the host's NVIDIA container toolkit (the operator's bundled
+  # toolkit can't handle Debian's /etc/alternatives driver layout).
+  # Requires NVIDIA's libnvidia-container apt repo to be configured.
+  if $microk8s::gpu {
+    package { 'nvidia-container-toolkit':
+      ensure => installed,
+      before => Exec['install-microk8s'],
+    }
   }
 
   exec { 'install-microk8s':
