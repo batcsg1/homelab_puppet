@@ -6,16 +6,18 @@ class immich_k8s::config {
   $node_port       = $immich_k8s::node_port
   $gpu_ml          = $immich_k8s::gpu_ml
   $gpu_transcoding = $immich_k8s::gpu_transcoding
-  $upload_path     = $immich_k8s::upload_path
-  $db_path         = $immich_k8s::db_path
+  $nfs_server      = $immich_k8s::nfs_server
+  $nfs_path        = $immich_k8s::nfs_path
   $samuel_library  = $immich_k8s::samuel_library
   $carmen_library  = $immich_k8s::carmen_library
+  $db_path         = $immich_k8s::db_path
   $db_username     = $immich_k8s::db_username
   $db_name         = $immich_k8s::db_name
   $db_password     = $immich_k8s::db_password
   $tunnel_token    = $immich_k8s::tunnel_token
 
-  # Postgres runs as UID 999 and requires 0700 on its data dir
+  # Postgres runs as UID 999 and requires 0700 on its data dir.
+  # Only valid on the node labelled immich/db=true (where this class is applied).
   file { $db_path:
     ensure => directory,
     owner  => 999,

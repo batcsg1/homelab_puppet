@@ -11,3 +11,5 @@ immich_k8s::immich_version: release
 immich_k8s::timezone: Pacific/Auckland
 immich_k8s::gpu_ml: true
 immich_k8s::gpu_transcoding: false
+immich_k8s::nfs_server: 10.0.0.1
+immich_k8s::nfs_path: /srv/nfs/immich/storage

@@ -7,11 +7,19 @@ gpu:
   ml: <%= @gpu_ml %>
   transcoding: <%= @gpu_transcoding %>
 
+nfs:
+  server: <%= @nfs_server.to_json %>
+  path: <%= @nfs_path.to_json %>
+
+libraries:
+  samuel: <%= @samuel_library.to_json %>
+  carmen: <%= @carmen_library.to_json %>
+
 paths:
-  upload: <%= @upload_path.to_json %>
   db: <%= @db_path.to_json %>
-  samuelLibrary: <%= @samuel_library.to_json %>
-  carmenLibrary: <%= @carmen_library.to_json %>
+
+dbNodeSelector:
+  immich/db: "true"
 
 db:
   username: <%= @db_username.to_json %>
