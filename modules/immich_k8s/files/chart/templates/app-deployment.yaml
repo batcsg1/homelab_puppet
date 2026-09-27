@@ -16,6 +16,7 @@ spec:
       labels:
         io.kompose.service: app
     spec:
+      enableServiceLinks: false
       {{- if .Values.gpu.transcoding }}
       runtimeClassName: nvidia-container-runtime
       {{- end }}

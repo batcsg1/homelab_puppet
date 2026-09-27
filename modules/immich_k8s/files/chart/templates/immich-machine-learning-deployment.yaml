@@ -16,6 +16,7 @@ spec:
       labels:
         io.kompose.service: immich-machine-learning
     spec:
+      enableServiceLinks: false
       {{- if .Values.gpu.ml }}
       runtimeClassName: nvidia-container-runtime
       {{- end }}
