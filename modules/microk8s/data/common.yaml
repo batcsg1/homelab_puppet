@@ -11,4 +11,5 @@ microk8s::addons:
   hostpath-storage: ''
   helm3: ''
 microk8s::gpu: false
-microk8s::users: []
+microk8s::users:
+  - batcsg1
