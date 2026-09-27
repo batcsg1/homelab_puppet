@@ -37,8 +37,8 @@ class minecraft::config {
   }
 
   exec { 'bluemap-accept-download':
-    command => "sed -i 's/^accept-download: false/accept-download: true/' ${minecraft::data_dir}/plugins/BlueMap/core.conf",
-    onlyif  => "grep -q '^accept-download: false' ${minecraft::data_dir}/plugins/BlueMap/core.conf",
+    command => "sed -i 's/^accept-download: false/accept-download: true/' ${minecraft::server_data}/plugins/BlueMap/core.conf",
+    onlyif  => "grep -q '^accept-download: false' ${minecraft::server_data}/plugins/BlueMap/core.conf",
     path    => ['/usr/bin', '/bin'],
     notify  => Class['minecraft::service'],
   }
