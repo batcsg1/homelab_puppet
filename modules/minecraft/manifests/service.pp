@@ -16,4 +16,11 @@ class minecraft::service {
     ],
     refreshonly => true,
   }
+
+  exec { 'minecraft-restart':
+    command     => "docker restart ${minecraft::container_name}",
+    path        => ['/usr/bin', '/bin'],
+    refreshonly => true,
+    require     => Exec['minecraft-compose-up'],
+  }
 }

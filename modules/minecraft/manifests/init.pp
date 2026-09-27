@@ -27,5 +27,5 @@ class minecraft (
 
   Class['minecraft::install']
   -> Class['minecraft::config']
-  ~> Class['minecraft::service']
+  -> Class['minecraft::service']
 }

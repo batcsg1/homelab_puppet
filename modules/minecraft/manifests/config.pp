@@ -36,10 +36,13 @@ class minecraft::config {
     require => File[$minecraft::compose_dir],
   }
 
+  # BlueMap generates core.conf on first start with accept-download: false.
+  # Flip it once the file exists; compose up -d won't restart an unchanged
+  # container, so trigger an explicit restart.
   exec { 'bluemap-accept-download':
     command => "sed -i 's/^accept-download: false/accept-download: true/' ${minecraft::server_data}/plugins/BlueMap/core.conf",
     onlyif  => "grep -q '^accept-download: false' ${minecraft::server_data}/plugins/BlueMap/core.conf",
     path    => ['/usr/bin', '/bin'],
-    notify  => Class['minecraft::service'],
+    notify  => Exec['minecraft-restart'],
   }
 }
