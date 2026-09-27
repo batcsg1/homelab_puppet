@@ -16,6 +16,9 @@ spec:
       labels:
         io.kompose.service: app
     spec:
+      {{- if .Values.gpu.ml }}
+        runtimeClassName: nvidia-container-runtime
+      {{- end }}
       containers:
         - name: immich-server
           image: ghcr.io/immich-app/immich-server:{{ .Values.immichVersion }}
