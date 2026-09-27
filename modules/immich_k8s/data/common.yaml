@@ -1,15 +1,21 @@
+---
 lookup_options:
   immich_k8s::db_password:
     convert_to: Sensitive
   immich_k8s::tunnel_token:
     convert_to: Sensitive
 
-microk8s::users:
-  - batcsg1
-
 immich_k8s::immich_version: release
 immich_k8s::timezone: Pacific/Auckland
+immich_k8s::node_port: 32283
 immich_k8s::gpu_ml: true
 immich_k8s::gpu_transcoding: false
 immich_k8s::nfs_server: 10.0.0.1
 immich_k8s::nfs_path: /srv/nfs/immich/storage
+immich_k8s::samuel_library: external/admin
+immich_k8s::carmen_library: external/1f6d1099-d3b2-4a90-894f-dee4a4f9d5de
+immich_k8s::db_path: /srv/immich/db
+immich_k8s::db_username: postgres
+immich_k8s::db_name: immich
+immich_k8s::chart_dir: /opt/immich-chart
+immich_k8s::namespace: immich

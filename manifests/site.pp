@@ -15,8 +15,9 @@ node 'nextcloud.puppet.batchelornz.com' {
 node 'workstation.puppet.batchelornz.com' {
   include common
   include puppet::agent
-  include immich
+  #include immich
   include microk8s
+  #include immich_k8s
 }
 
 node 'minecraft.puppet.batchelornz.com' {

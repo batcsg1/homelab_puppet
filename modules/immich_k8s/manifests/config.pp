@@ -42,4 +42,11 @@ class immich_k8s::config {
     mode      => '0600',
     show_diff => false,
   }
+
+  $node_name = downcase($facts['networking']['hostname'])
+
+  exec { 'label-immich-db-node':
+    command => "/snap/bin/microk8s kubectl label node ${node_name} immich/db=true --overwrite",
+    unless  => "/snap/bin/microk8s kubectl get node ${node_name} --show-labels | /bin/grep -q 'immich/db=true'",
+  }
 }

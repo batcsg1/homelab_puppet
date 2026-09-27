@@ -1,2 +1,3 @@
 # Rename to the node's certname: sudo puppet config print certname
+microk8s::role: control
 microk8s::gpu: true

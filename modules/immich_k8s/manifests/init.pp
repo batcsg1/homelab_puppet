@@ -1,22 +1,24 @@
 # @summary Deploys Immich on MicroK8s via its Helm chart.
 #
-# Secrets come from Hiera (eyaml) and are written only into values.yaml on the node.
+# Defaults live in the module's data/common.yaml; override them in environment Hiera.
+# Secrets (db_password, tunnel_token) must come from environment Hiera (eyaml).
 class immich_k8s (
   Sensitive[String[1]] $db_password,
   Sensitive[String[1]] $tunnel_token,
-  String  $immich_version  = 'release',
-  String  $timezone        = 'Pacific/Auckland',
-  Integer $node_port       = 32283,
-  Boolean $gpu_ml          = true,
-  Boolean $gpu_transcoding = false,
-  String  $upload_path     = '/srv/immich/storage',
-  String  $db_path         = '/srv/immich/db',
-  String  $samuel_library  = '/srv/immich/storage/external/admin',
-  String  $carmen_library  = '/srv/immich/storage/external/1f6d1099-d3b2-4a90-894f-dee4a4f9d5de',
-  String  $db_username     = 'postgres',
-  String  $db_name         = 'immich',
-  String  $chart_dir       = '/opt/immich-chart',
-  String  $namespace       = 'immich',
+  String  $immich_version,
+  String  $timezone,
+  Integer $node_port,
+  Boolean $gpu_ml,
+  Boolean $gpu_transcoding,
+  String  $nfs_server,
+  String  $nfs_path,
+  String  $samuel_library,
+  String  $carmen_library,
+  String  $db_path,
+  String  $db_username,
+  String  $db_name,
+  String  $chart_dir,
+  String  $namespace,
 ) {
   require microk8s
 
