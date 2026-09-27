@@ -10,7 +10,7 @@ class minecraft::config {
     owner   => $minecraft::docker_user,
     group   => $minecraft::docker_user,
     mode    => '0644',
-    content => epp('minecraft/docker-compose.yml.epp', {
+    content => epp('minecraft/compose.yml.epp', {
       'image'             => $minecraft::image,
       'container_name'    => $minecraft::container_name,
       'eula'              => $minecraft::eula,
