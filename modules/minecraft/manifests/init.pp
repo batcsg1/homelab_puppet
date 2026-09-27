@@ -16,6 +16,8 @@ class minecraft (
   Integer $game_port,
   Integer $dynmap_port,
   String  $restart_policy,
+  Integer $bluemap_port,
+  Array[String] $modrinth_projects,
   String  $docker_user,
 ) {
 

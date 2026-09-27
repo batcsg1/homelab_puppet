@@ -5,6 +5,8 @@
       String  $mode,
       Integer $game_port,
       Integer $dynmap_port,
+      Integer $bluemap_port,
+      Array[String] $modrinth_projects,
       String  $restart_policy,
 | -%>
 services:
@@ -13,11 +15,16 @@ services:
     container_name: <%= $container_name %>
     environment:
       EULA: "<%= $eula %>"
+      TYPE: PAPER
       LEVEL: <%= $level %>
       MODE: <%= $mode %>
+<% unless $modrinth_projects.empty { -%>
+      MODRINTH_PROJECTS: "<%= $modrinth_projects.join(',') %>"
+<% } -%>
     ports:
       - "<%= $game_port %>:25565"
       - "<%= $dynmap_port %>:8123"
+      - "<%= $bluemap_port %>:8100"
     volumes:
       - ${SERVER_DATA}:/data
     stdin_open: true

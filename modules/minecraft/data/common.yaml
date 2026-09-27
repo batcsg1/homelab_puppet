@@ -10,3 +10,6 @@ minecraft::game_port: 25565
 minecraft::dynmap_port: 8123
 minecraft::restart_policy: 'unless-stopped'
 minecraft::docker_user: 'docker'
+minecraft::bluemap_port: 8100
+minecraft::modrinth_projects:
+  - bluemap
