@@ -17,9 +17,11 @@ class microk8s (
     fail('microk8s: role worker requires microk8s::control_plane')
   }
 
+  $gpu_values = '/etc/microk8s/gpu-operator-values.yaml'
+
   $all_addons = $gpu ? {
     true    => $addons + {
-      'nvidia' => '--gpu-operator-driver host --gpu-operator-no-set-as-default-runtime --gpu-operator-set toolkit.enabled=false --gpu-operator-set operator.runtimeClass=nvidia-container-runtime --gpu-operator-set operator.defaultRuntime=containerd',
+      'nvidia' => "--gpu-operator-driver host --gpu-operator-no-set-as-default-runtime --gpu-operator-values ${gpu_values}",
     },
     default => $addons,
   }
