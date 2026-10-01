@@ -45,8 +45,16 @@ class immich_k8s::config {
 
   $node_name = downcase($facts['networking']['hostname'])
 
+  # Block until the MicroK8s API answers (cold boot / snap restart)
+  exec { 'microk8s-wait-ready':
+    command => '/snap/bin/microk8s status --wait-ready --timeout 120',
+    unless  => '/snap/bin/microk8s status --wait-ready --timeout 5',
+    timeout => 150,
+  }
+
   exec { 'label-immich-db-node':
     command => "/snap/bin/microk8s kubectl label node ${node_name} immich/db=true --overwrite",
     unless  => "/snap/bin/microk8s kubectl get node ${node_name} --show-labels | /bin/grep -q 'immich/db=true'",
+    require => Exec['microk8s-wait-ready'],
   }
 }
