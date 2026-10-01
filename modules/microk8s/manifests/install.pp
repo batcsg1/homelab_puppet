@@ -1,4 +1,4 @@
-# @summary Installs snapd, MicroK8s and host dependencies, then waits for it to be ready.
+# @summary Installs snapd, MicroK8s and host dependencies, then ensures it is running and ready.
 class microk8s::install {
   $channel_arg = $microk8s::channel ? {
     undef   => '',
@@ -26,8 +26,10 @@ class microk8s::install {
     require => Package['snapd'],
   }
 
+  # Start if stopped, then block until the API is ready.
+  # Skipped entirely when already running.
   exec { 'microk8s-wait-ready':
-    command => '/snap/bin/microk8s status --wait-ready',
+    command => '/snap/bin/microk8s start && /snap/bin/microk8s status --wait-ready --timeout 300',
     unless  => "/snap/bin/microk8s status | /bin/grep -q 'is running'",
     timeout => 600,
     require => Exec['install-microk8s'],
