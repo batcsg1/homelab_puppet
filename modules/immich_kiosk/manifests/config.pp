@@ -25,6 +25,8 @@ class immich_kiosk::config {
     group     => 'docker',
     mode      => '0640',
     show_diff => false,
-    content   => Sensitive(to_yaml($base_config + $immich_kiosk::settings)),
+    content   => Sensitive(epp('immich_kiosk/config.yaml.epp', {
+      'config' => $base_config + $immich_kiosk::settings,
+    })),
   }
 }

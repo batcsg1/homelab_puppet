@@ -1,0 +1,5 @@
+<%- | Hash[String, Any] $config | -%>
+# Managed by Puppet (immich_kiosk) - local edits will be overwritten
+<% $config.each |$key, $val| { -%>
+<%= $key %>: <%= immich_kiosk::yaml_value($val) %>
+<% } -%>

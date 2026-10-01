@@ -11,15 +11,15 @@
 # @param settings        Extra config.yaml keys merged over defaults
 #
 class immich_kiosk (
-  Pattern[/^https?:\/\//]            $immich_url,
+  Pattern[/^https?:\/\//]   $immich_url,
   Sensitive[String[1]]       $immich_api_key,
   String[1]                  $image_tag = 'latest',
-  Pattern[/^\//]       $base_dir  = '/opt/docker/immich-kiosk',
-  Integer[1, 65535]               $port      = 3000,
+  Pattern[/^\//]             $base_dir  = '/opt/docker/immich-kiosk',
+  Integer[1, 65535]          $port      = 3000,
   String[1]                  $timezone  = 'Pacific/Auckland',
   String[1]                  $lang      = 'en_NZ',
   Optional[String[1]]        $network   = undef,
-  Hash[String, Data]         $settings  = {},
+  Hash[String, Variant[String, Numeric, Boolean, Array[Variant[String, Numeric, Boolean]]]] $settings  = {},
 ) {
   contain immich_kiosk::install
   contain immich_kiosk::config
