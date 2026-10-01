@@ -19,6 +19,8 @@ class minecraft (
   Integer $bluemap_port,
   Array[String] $modrinth_projects,
   String  $docker_user,
+  String           $server_type   = 'PAPER',
+  Optional[String] $custom_server = undef,
 ) {
 
   contain minecraft::install

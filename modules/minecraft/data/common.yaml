@@ -11,5 +11,7 @@ minecraft::dynmap_port: 8123
 minecraft::restart_policy: 'unless-stopped'
 minecraft::docker_user: 'docker'
 minecraft::bluemap_port: 8100
+minecraft::server_type: CUSTOM
+minecraft::custom_server: /data/paper-26.2-129.jar
 minecraft::modrinth_projects:
   - bluemap

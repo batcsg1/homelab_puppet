@@ -21,6 +21,8 @@ class minecraft::config {
       'bluemap_port'      => $minecraft::bluemap_port,
       'modrinth_projects' => $minecraft::modrinth_projects,
       'restart_policy'    => $minecraft::restart_policy,
+      'server_type'   => $minecraft::server_type,
+      'custom_server' => $minecraft::custom_server,
     }),
     require => File[$minecraft::compose_dir],
   }
