@@ -11,11 +11,11 @@
 # @param settings        Extra config.yaml keys merged over defaults
 #
 class immich_kiosk (
-  Stdlib::HTTPUrl            $immich_url,
+  Pattern[/^https?:\/\//]            $immich_url,
   Sensitive[String[1]]       $immich_api_key,
   String[1]                  $image_tag = 'latest',
-  Stdlib::Absolutepath       $base_dir  = '/opt/docker/immich-kiosk',
-  Stdlib::Port               $port      = 3000,
+  Pattern[/^\//]       $base_dir  = '/opt/docker/immich-kiosk',
+  Integer[1, 65535]               $port      = 3000,
   String[1]                  $timezone  = 'Pacific/Auckland',
   String[1]                  $lang      = 'en_NZ',
   Optional[String[1]]        $network   = undef,
