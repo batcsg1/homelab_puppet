@@ -1,0 +1,17 @@
+---
+lookup_options:
+  immich_kiosk::immich_api_key:
+    convert_to: 'Sensitive'
+
+# immich-kiosk
+immich_kiosk::immich_url: 'http://10.0.0.1:32283'   # or 'http://192.168.20.100:2283' if not on Immich's network
+immich_kiosk::network: 'immich_default'                 # Immich compose network; remove to use LAN URL
+immich_kiosk::image_tag: '0.44.1'
+immich_kiosk::port: 3000
+immich_kiosk::timezone: 'Pacific/Auckland'
+immich_kiosk::lang: 'en_NZ'
+immich_kiosk::settings:
+  duration: 60
+  show_date: true
+  show_time: true
+  albums: []

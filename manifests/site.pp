@@ -18,6 +18,7 @@ node 'workstation.puppet.batchelornz.com' {
   #include immich
   include microk8s
   include immich_k8s
+  include immich_kiosk
 }
 
 node 'minecraft.puppet.batchelornz.com' {

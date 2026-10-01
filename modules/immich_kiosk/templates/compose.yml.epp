@@ -1,0 +1,28 @@
+<%- |
+  String               $image_tag,
+  Integer              $port,
+  String               $timezone,
+  String               $lang,
+  Optional[String]     $network,
+| -%>
+# Managed by Puppet (immich_kiosk) - local edits will be overwritten
+services:
+  immich-kiosk:
+    image: ghcr.io/damongolding/immich-kiosk:<%= $image_tag %>
+    container_name: immich-kiosk
+    restart: unless-stopped
+    environment:
+      TZ: <%= $timezone %>
+      LANG: <%= $lang %>
+    ports:
+      - "<%= $port %>:3000"
+    volumes:
+      - ./config:/config
+<% if $network { -%>
+    networks:
+      - <%= $network %>
+
+networks:
+  <%= $network %>:
+    external: true
+<% } -%>
