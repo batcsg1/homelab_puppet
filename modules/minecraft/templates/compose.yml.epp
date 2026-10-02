@@ -8,6 +8,8 @@
       Integer $bluemap_port,
       Array[String] $modrinth_projects,
       String  $restart_policy,
+      String           $server_type,
+      Optional[String] $custom_server = undef,
 | -%>
 services:
   mc:
@@ -15,7 +17,10 @@ services:
     container_name: <%= $container_name %>
     environment:
       EULA: "<%= $eula %>"
-      TYPE: PAPER
+      TYPE: <%= $server_type %>
+<% if $custom_server { -%>
+      CUSTOM_SERVER: <%= $custom_server %>
+<% } -%>
       LEVEL: <%= $level %>
       MODE: <%= $mode %>
 <% unless $modrinth_projects.empty { -%>
