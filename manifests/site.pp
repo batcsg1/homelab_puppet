@@ -32,3 +32,8 @@ node 'cm1.puppet.batchelornz.com' {
     ca_master => false,
   }
 }
+
+node 'jellyfin.puppet.batchelornz.com' {
+  include common
+  include jellyfin
+}
