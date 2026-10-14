@@ -1,0 +1,10 @@
+# jellyfin/data/common.yaml
+jellyfin::compose_dir: '/opt/docker/jellyfin'
+jellyfin::jellyfin_home: '/srv/jellyfin'
+jellyfin::media_location: '/srv/jellyfin/media'
+jellyfin::timezone: 'Pacific/Auckland'
+jellyfin::jellyfin_version: 'latest'
+jellyfin::uid: 1001
+jellyfin::gid: 1001
+jellyfin::http_port: 8096
+jellyfin::hardware_acceleration: false
