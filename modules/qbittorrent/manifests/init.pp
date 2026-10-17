@@ -10,7 +10,7 @@
 class qbittorrent (
   String               $user         = 'qbt',
   String               $download_dir = '/downloads',
-  String               $webui_port   = 8080,
+  Integer               $webui_port   = 8080,
 ) {
   package { 'qbittorrent-nox':
     ensure => installed,
