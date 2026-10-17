@@ -37,3 +37,8 @@ node 'jellyfin.puppet.batchelornz.com' {
   include common
   include jellyfin
 }
+
+node 'qbittorrent.puppet.batchelornz.com' {
+  include common
+  include qbittorrent
+}
