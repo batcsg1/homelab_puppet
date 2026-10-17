@@ -41,4 +41,5 @@ node 'jellyfin.puppet.batchelornz.com' {
 node 'qbittorrent.puppet.batchelornz.com' {
   include common
   include qbittorrent
+  include servarr
 }
