@@ -1,0 +1,26 @@
+<%- |
+  String $app,
+  String $lc,
+  String $user,
+  String $group,
+  String $install_dir,
+  String $data_dir,
+| -%>
+# Managed by Puppet
+[Unit]
+Description=<%= $app %>
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=<%= $user %>
+Group=<%= $group %>
+UMask=0002
+Type=simple
+ExecStart=<%= $install_dir %>/<%= $app %>/<%= $app %> -nobrowser -data=<%= $data_dir %>
+TimeoutStopSec=20
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
