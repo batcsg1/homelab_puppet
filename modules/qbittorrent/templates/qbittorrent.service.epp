@@ -1,0 +1,14 @@
+<%- | String $user, Integer $webui_port | -%>
+# Managed by Puppet
+[Unit]
+Description=qBittorrent-nox
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=<%= $user %>
+ExecStart=/usr/bin/qbittorrent-nox --confirm-legal-notice --webui-port=<%= $webui_port %>
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
