@@ -19,3 +19,10 @@ services:
       - /dev/dri:/dev/dri
 <% } -%>
     restart: unless-stopped
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: jellyfin_tunnel
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN} 

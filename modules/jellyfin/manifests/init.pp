@@ -8,6 +8,7 @@ class jellyfin (
   Integer  $gid,
   Integer  $http_port,
   Boolean  $hardware_acceleration,
+  Optional[String]  $cloudflare_tunnel_token = undef,
 ) {
   contain jellyfin::install
   contain jellyfin::config
