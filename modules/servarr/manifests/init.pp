@@ -1,6 +1,6 @@
 # @summary Installs Servarr apps (Prowlarr, Radarr, Sonarr, ...) as systemd services.
 #
-# @param apps        Hash of resource title => { app => 'Name' }.
+# @param apps        Hash of resource title => { app => 'Name', url => optional override }.
 # @param user        Service account; use the qBittorrent user so imports keep ownership.
 # @param group       Service group.
 # @param branch      Servarr update branch.
@@ -8,30 +8,33 @@
 # @param media_dirs  Media directories (LXC bind mounts) the apps must write to.
 # @param icu_package libicu package name for the Debian release.
 #
-# @example
+# @example Prowlarr + Radarr + Sonarr with defaults
 #   include servarr
 #
-# @example Add Sonarr too
+# @example Movies only
 #   class { 'servarr':
-#     apps => {
+#     apps       => {
 #       'prowlarr' => { 'app' => 'Prowlarr' },
 #       'radarr'   => { 'app' => 'Radarr' },
-#       'sonarr'   => { 'app' => 'Sonarr' },
 #     },
-#     media_dirs => ['/movies', '/tv'],
+#     media_dirs => ['/movies'],
 #   }
 #
 class servarr (
-  Hash                       $apps        = {
+  Hash                  $apps        = {
     'prowlarr' => { 'app' => 'Prowlarr' },
     'radarr'   => { 'app' => 'Radarr' },
+    'sonarr'   => {
+      'app' => 'Sonarr',
+      'url' => 'https://services.sonarr.tv/v1/download/main/latest?version=4&os=linux&arch=x64',
+    },
   },
-  String                     $user        = 'qbt',
-  String                     $group       = 'qbt',
-  String                     $branch      = 'master',
-  Pattern[/^\//]           $install_dir = '/opt',
-  Array[Pattern[/^\//]]  $media_dirs = ['/movies'],
-  String                     $icu_package = $facts['os']['release']['major'] ? {
+  String                $user        = 'qbt',
+  String                $group       = 'qbt',
+  String                $branch      = 'master',
+  Pattern[/^\//]        $install_dir = '/opt',
+  Array[Pattern[/^\//]] $media_dirs  = ['/movies', '/tv'],
+  String                $icu_package = $facts['os']['release']['major'] ? {
     '12'    => 'libicu72',
     default => 'libicu76',
   },

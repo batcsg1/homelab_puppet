@@ -10,15 +10,21 @@
 # @example
 #   servarr::app { 'radarr': app => 'Radarr' }
 #
+# @param url  Optional download URL override (Sonarr v4 uses a different endpoint).
+#
 define servarr::app (
   String               $app,
+  Optional[String]     $url         = undef,
   String               $user        = $servarr::user,
   String               $group       = $servarr::group,
   String               $branch      = $servarr::branch,
   Pattern[/^\//]     $install_dir = $servarr::install_dir,
 ) {
   $lc       = downcase($app)
-  $url      = "https://${lc}.servarr.com/v1/update/${branch}/updatefile?os=linux&runtime=netcore&arch=x64"
+  $_url     = $url ? {
+    undef   => "https://${lc}.servarr.com/v1/update/${branch}/updatefile?os=linux&runtime=netcore&arch=x64",
+    default => $url,
+  }
   $tarball  = "/tmp/${lc}.tar.gz"
   $data_dir = "/var/lib/${lc}"
 
@@ -31,7 +37,7 @@ define servarr::app (
 
   # Download and extract once; the app self-updates afterwards.
   exec { "servarr-install-${lc}":
-    command => "curl -fsSL -o ${tarball} '${url}' && tar -xzf ${tarball} -C ${install_dir} && rm -f ${tarball}",
+    command => "curl -fsSL -o ${tarball} '${_url}' && tar -xzf ${tarball} -C ${install_dir} && rm -f ${tarball}",
     path    => ['/usr/bin', '/bin'],
     creates => "${install_dir}/${app}/${app}",
     timeout => 600,
