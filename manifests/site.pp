@@ -26,7 +26,7 @@ node 'minecraft.puppet.batchelornz.com' {
   include minecraft
 }
 
-node 'cm1.puppet.batchelornz.com' {
+node 'compile-maestro.puppet.batchelornz.com' {
   include common
   class { 'puppet::server':
     ca_master => false,
