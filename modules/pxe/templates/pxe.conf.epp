@@ -1,0 +1,9 @@
+port=0
+interface=<%= $pxe::interface %>
+bind-interfaces
+dhcp-range=<%= $pxe::subnet %>,proxy
+enable-tftp
+tftp-root=<%= $pxe::tftp_root %>
+pxe-service=X86-64_EFI,"netboot.xyz",netboot.xyz.efi
+pxe-service=BC_EFI,"netboot.xyz",netboot.xyz.efi
+log-dhcp

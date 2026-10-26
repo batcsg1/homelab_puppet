@@ -1,0 +1,5 @@
+---
+pxe::interface: 'eth0'
+pxe::subnet: '192.168.20.0'
+pxe::tftp_root: '/srv/tftp'
+pxe::efi_url: 'https://boot.netboot.xyz/ipxe/netboot.xyz.efi'
