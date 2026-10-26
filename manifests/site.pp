@@ -43,3 +43,8 @@ node 'qbittorrent.puppet.batchelornz.com' {
   include qbittorrent
   include servarr
 }
+
+node 'pxe-c.puppet.batchelornz.com' {
+  include common
+  include pxe
+}
